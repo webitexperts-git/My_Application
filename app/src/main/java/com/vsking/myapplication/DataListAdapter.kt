@@ -18,16 +18,18 @@ class DataListAdapter(val listener:ItemClickListener):PagingDataAdapter<ListData
         val title= view.findViewById<TextView>(R.id.textView)
         val desc= view.findViewById<TextView>(R.id.textView2)
         fun bindData(data: ListData){
-            title.text=data.first_name
-            desc.text=data.email
+            title.text=data.name
+            desc.text=data.species
         }
 
     }
 
     override fun onBindViewHolder(holder: DataHolder, position: Int) {
-        holder.bindData(getItem(position)!!)
-        holder.itemView.setOnClickListener {
-            listener.onItemClick(getItem(position)!!)
+        if (getItem(position) != null) {
+            holder.bindData(getItem(position)!!)
+            holder.itemView.setOnClickListener {
+                listener.onItemClick(getItem(position)!!)
+            }
         }
     }
 
@@ -44,11 +46,11 @@ class DataListAdapter(val listener:ItemClickListener):PagingDataAdapter<ListData
 
     class DiffUtilCallback: DiffUtil.ItemCallback<ListData>(){
         override fun areItemsTheSame(oldItem: ListData, newItem: ListData): Boolean {
-            return oldItem.first_name == newItem.first_name
+            return oldItem.name == newItem.name
         }
 
         override fun areContentsTheSame(oldItem: ListData, newItem: ListData): Boolean {
-            return oldItem.first_name == newItem.first_name && oldItem.email == newItem.email
+            return oldItem.name == newItem.name && oldItem.species == newItem.species
         }
 
     }

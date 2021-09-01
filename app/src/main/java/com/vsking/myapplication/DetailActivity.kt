@@ -12,7 +12,7 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val data=intent.getSerializableExtra("data") as ListData
-        tvName.text=data.first_name
-        tvEmail.text=data.email
+        tvName.text=data.name
+        tvEmail.text=data.species
     }
 }

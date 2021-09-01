@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), DataListAdapter.ItemClickListener {
     }
 
     override fun onItemClick(data: ListData) {
-        Toast.makeText(this,""+data.first_name,Toast.LENGTH_LONG).show()
+        Toast.makeText(this,""+data.name,Toast.LENGTH_LONG).show()
         val intent: Intent= Intent(this,DetailActivity::class.java)
         intent.putExtra("data",data)
         startActivity(intent)

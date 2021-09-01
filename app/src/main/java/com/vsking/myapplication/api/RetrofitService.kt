@@ -9,6 +9,6 @@ import retrofit2.http.Query
  * E-mail:- vivekpcst.kumar@gmail.com
  */
 interface RetrofitService {
-    @GET("users?")
+    @GET("character?")
     suspend fun getDatalist(@Query("page")page: Int): DataListRes
 }

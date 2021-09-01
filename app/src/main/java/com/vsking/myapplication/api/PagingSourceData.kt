@@ -1,6 +1,7 @@
 package com.vsking.myapplication.api
 
 import android.net.Uri
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.vsking.myapplication.api.apidata.ListData
@@ -14,13 +15,26 @@ class PagingSourceData(val apiservice: RetrofitService): PagingSource<Int, ListD
         return state.anchorPosition
     }
 
+    fun getLastNCharsOfString(str: String?, n: Int): String? {
+        var lastnChars = if (str.isNullOrEmpty()){
+            ""
+        }else{
+            str
+        }
+        if (lastnChars.length > n) {
+            lastnChars = lastnChars.substring(lastnChars.length - n, lastnChars.length)
+        }
+        return lastnChars
+    }
+
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ListData> {
         return try {
             val result = apiservice.getDatalist(params.key ?: firstPage)
+
             LoadResult.Page(
-                data = result.data,
-                prevKey = params.key,
-                nextKey = (result.page?.toInt()?.plus(1)) ?: firstPage.plus(1)
+                data = result.results,
+                prevKey = null,
+                nextKey = (getLastNCharsOfString(result.info.next,1))?.toInt() ?: firstPage.plus(1)
             )
         }catch (e:Exception){
             LoadResult.Error(e)

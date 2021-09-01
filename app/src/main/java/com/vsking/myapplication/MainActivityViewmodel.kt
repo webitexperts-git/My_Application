@@ -22,7 +22,7 @@ class MainActivityViewmodel:ViewModel() {
         retrofitService = RetrofitInstance.getRetrofitInstance().create(RetrofitService::class.java)
     }
     fun getListData():Flow<PagingData<ListData>>{
-        return Pager (config = PagingConfig(pageSize = 2,maxSize = 100),
+        return Pager (config = PagingConfig(pageSize = 34,maxSize = 200),
         pagingSourceFactory = {PagingSourceData(retrofitService)}
             ).flow.cachedIn(viewModelScope)
     }
